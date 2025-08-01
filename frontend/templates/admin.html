@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryoMind - Administrador</title>
+    <link rel="stylesheet" href="../static/css/admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <h1>CryoMind</h1>
+            <div class="user-info">
+                <span class="user-badge">Usuario: Administrator</span>
+                <button id="logout-btn" class="logout-button">
+                    Cerrar sesión
+                </button>
+            </div>
+        </header>
+
+        <nav class="admin-sidebar">
+            <h2 class="sidebar-title">CryoMind</h2>
+            <ul class="admin-menu">
+                <li class="menu-item">
+                    <a href="#" class="menu-link">
+                        <span class="menu-icon">📝</span>
+                        Registro nuevos usuarios
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link">
+                        <span class="menu-icon">🔍</span>
+                        Buscar un usuario
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="admin-content">
+            <div class="welcome-message">
+                <h2>Bienvenido, Administrador</h2>
+                <p>Seleccione una opción del menú para comenzar.</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
