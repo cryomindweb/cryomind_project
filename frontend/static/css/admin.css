@@ -28,6 +28,9 @@
     background-color: var(--russian-violet);
     color: white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    /* Añade estas propiedades: */
+    flex-wrap: nowrap;
+    min-width: 0; /* Permite que los elementos hijos se ajusten */
 }
 
 .admin-header h1 {
@@ -36,9 +39,19 @@
     margin: 0;
 }
 
-.user-info {
-    display: flex;
+.admin-header .user-info {
+    display: flex; /* Cambiado de inline-block a flex */
     align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+.logout-button {
+    /* Asegúrate que el botón tenga estas propiedades: */
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .user-badge {
@@ -47,6 +60,11 @@
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: bold;
+    /* Añade estas propiedades: */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* Ajusta según necesidad */
 }
 
 .admin-sidebar {
@@ -100,49 +118,6 @@
     grid-area: content;
     padding: 2rem;
     background-color: var(--seasalt);
-}
-
-.welcome-message {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.welcome-message h2 {
-    color: var(--russian-violet);
-    margin-bottom: 1rem;
-}
-
-.welcome-message p {
-    color: var(--ebony);
-    font-size: 1.1rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .admin-container {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "header"
-            "content";
-    }
-
-    .admin-sidebar {
-        display: none; /* Puedes convertirlo en un menú hamburguesa */
-    }
-
-    .admin-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .user-info {
-        margin-top: 1rem;
-    }
 }
 
 .logout-button {
@@ -217,4 +192,224 @@
 .modal-btn:hover {
     opacity: 0.9;
     transform: translateY(-2px);
+}
+
+/* Estilos para las vistas dinámicas */
+
+/* Formulario de registro */
+.registration-form {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-title {
+    color: var(--russian-violet);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--russian-violet);
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--glaucous);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.form-btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submit-btn {
+    background-color: var(--dark-cyan);
+    color: white;
+}
+
+.submit-btn:hover {
+    background-color: #037a72;
+    transform: translateY(-2px);
+}
+
+.cancel-btn {
+    background-color: var(--ebony);
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #565347;
+    transform: translateY(-2px);
+}
+
+/* Buscador de usuarios */
+.search-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.search-form {
+    margin-bottom: 2rem;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-item {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-item:last-child {
+    border-bottom: none;
+}
+
+.user-list .user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: bold;
+    color: var(--russian-violet);
+}
+
+.user-email {
+    color: var(--ebony);
+    font-size: 0.9rem;
+}
+
+.user-role {
+    background-color: var(--glaucous);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+.user-buttons {
+    background-color: var(--dark-cyan);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+.user-buttons:hover {
+    background-color: var(--dark-cyan);
+    transform: scale(1.05);
+}
+/* Mensaje de bienvenida */
+.welcome-message {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.welcome-message h2 {
+    color: var(--russian-violet);
+    margin-bottom: 1rem;
+}
+
+.welcome-message p {
+    color: var(--ebony);
+    font-size: 1.1rem;
+}
+
+/* Ítem de menú activo */
+.menu-item.active .menu-link {
+    background-color: rgba(107, 127, 215, 0.2);
+    color: var(--russian-violet);
+    font-weight: bold;
+    border-left: 4px solid var(--glaucous);
+}
+
+/* Transiciones para cambios de vista */
+.view-transition {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "content";
+    }
+
+    .admin-sidebar {
+        display: none; /* Puedes convertirlo en un menú hamburguesa */
+    }
+
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .user-info {
+        margin-top: 1rem;
+    }
 }
