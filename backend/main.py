@@ -12,8 +12,8 @@ app.include_router(pages_router.router) # type: ignore
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(users.router, prefix="/users", tags=["users"])
 app.include_router(patients.router, prefix="/patients", tags=["patients"])
-# app.include_router(temperatures.router, prefix="/temperatures", tags=["temperatures"])
-# app.include_router(treatments.router, prefix="/treatments", tags=["treatments"])
+app.include_router(temperatures.router, prefix="/temperatures", tags=["temperatures"])
+app.include_router(treatments.router, prefix="/treatments", tags=["treatments"])
 
 app.mount("/static", StaticFiles(directory="../frontend/static"), name="static")
 

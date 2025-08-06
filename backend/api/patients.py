@@ -1,23 +1,48 @@
-from fastapi import APIRouter
-from schemas.patients import PatientCreate, PatientListResponse, PatientResponse, PatientBatchCreate
-from services.patients import create_patient_response, patient_list_response, get_patient_response, create_patients_batch_response
+from fastapi import APIRouter, HTTPException
+from schemas.patients import PatientAllDataCreate, PatientListResponse, PatientResponse, PatientBatchCreate
+from services.patients import create_patient_service, patient_list_service, get_patient_service, create_patients_batch_service
+from services.treatments import create_treatment_service
 
 router = APIRouter()
 
 @router.post("/patients", status_code=201, summary="Registrar nuevo paciente")
-def create_patient(data: PatientCreate):
-    return create_patient_response(data)
+def create_patient(data: PatientAllDataCreate):
+    patient_data = {
+            "id_clinico": data.id_clinico,
+            "nombre_completo": data.nombre_completo,
+            "nombre_progenitor": data.nombre_progenitor,
+            "fecha_nacimiento": data.fecha_nacimiento,
+            "hora_nacimiento": data.hora_nacimiento,
+            "minuto_nacimiento": data.minuto_nacimiento,
+            "peso": data.peso,
+            "semanas_gestacion": data.semanas_gestacion,
+            "dias_gestacion": data.dias_gestacion
+        }
+    tratment_data = {
+            "id_clinico": data.id_clinico,
+            "fecha_tratamiento": data.fecha_tratamiento,
+            "hora_inicio": data.hora_inicio,
+            "hora_finalizacion": data.hora_finalizacion,
+            "setpoint": data.setpoint
+        }
+    patient_status, patient_response = create_patient_service(PatientAllDataCreate(**patient_data)) # type: ignore
+    if not patient_status:
+        raise HTTPException(status_code=patient_response['status_code'], detail=patient_response['detail'])
+    treatment_status, treatment_response = create_treatment_service(TreatmentResponse(**tratment_data)) # type: ignore
+    if not treatment_status:
+        raise HTTPException(status_code=treatment_response['status_code'], detail=treatment_response['detail'])
+    return {"message": "Paciente y tratamiento creados exitosamente"}
 
 #create many patients
 @router.post("/patients/batch", status_code=201, summary="Registrar varios pacientes")
 def create_patients_batch(data: PatientBatchCreate):
-    return create_patients_batch_response(data.patients)
+    return create_patients_batch_service(data.pacientes)
 
 @router.get("/patients", response_model=PatientListResponse, summary="Listar pacientes")
 def list_patients():
-    return patient_list_response()
+    return patient_list_service()
 
 @router.get("/patients/{patient_clinic_id}", response_model=PatientResponse, summary="Obtener paciente por ID clinico")
 def get_patient(patient_clinic_id: str):
-    return get_patient_response(patient_clinic_id)
+    return get_patient_service(patient_clinic_id)
 

@@ -2,6 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     supabase_url: str
+    jwks_url: str
     supabase_key: str
     jwt_secret_key: str
     jwt_algorithm: str = "HS256"
