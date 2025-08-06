@@ -19,13 +19,11 @@ def login(data: LoginData):
     Autenticación de usuarios mediante Supabase.
     Retorna el JWT generado por Supabase junto con el rol desde la tabla 'usuarios'.
     """
-
     # 1. Autenticación con Supabase Auth
     auth_result = supabase.auth.sign_in_with_password({
         "email": data.username,
         "password": data.password
     })
-
     if not auth_result or not auth_result.session or not auth_result.user:
         raise HTTPException(status_code=401, detail="Credenciales inválidas")
 

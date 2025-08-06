@@ -6,7 +6,10 @@ from core.dependencies import require_admin
 router = APIRouter()
 
 @router.post("/signup", status_code=201, summary="Registrar nuevo usuario")
-def signup(data: UserCreate, user: dict = Depends(require_admin)):
+def signup(
+    data: UserCreate,
+    user: dict = Depends(require_admin)  # Captura el token del admin
+): # type: ignore 
     success, response = create_user_service(data)
     if not success:
         raise HTTPException(status_code=response['status_code'], detail=response['detail'])

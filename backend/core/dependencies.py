@@ -31,7 +31,8 @@ def require_admin(credentials=Depends(security)):
     return {
         "usuario_id": user_id,
         "email": claims.get("email"),
-        "rol": rol_resp.data["rol"]
+        "rol": rol_resp.data["rol"],
+        "token": token
     }
 
 def require_medico(credentials=Depends(security)):

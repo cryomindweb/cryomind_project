@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <label for="role">Rol</label>
                         <select id="role" name="role" required>
                             <option value="">Seleccione un rol</option>
-                            <option value="admin">Administrador</option>
+                            <option value="administrador">Administrador</option>
                             <option value="medico">Medico</option>
                         </select>
                     </div>
@@ -83,40 +83,61 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('user-registration-form').addEventListener('submit', handleRegister);
     }
 
-    function showSearchView() {
-        adminContent.innerHTML = `
-            <div class="search-container view-transition">
-                <h2 class="form-title">Buscar usuario</h2>
-                <div class="search-form">
-                    <input type="text" class="search-input" placeholder="Buscar por nombre de usuario...">
-                </div>
-                <ul class="user-list" id="user-list">
-                    <!-- Los usuarios se cargarán aquí -->
-                </ul>
+    async function showSearchView() {
+    adminContent.innerHTML = `
+        <div class="search-container view-transition">
+            <h2 class="form-title">Buscar usuario</h2>
+            <div class="search-form">
+                <input type="text" class="search-input" placeholder="Buscar por nombre de usuario...">
             </div>
-        `;
+            <ul class="user-list" id="user-list">
+                <!-- Los usuarios se cargarán aquí -->
+            </ul>
+        </div>
+    `;
 
-        // Simular datos de usuarios
-        const users = [
-            { name: "Ana López", email: "ana@cryomind.com", role: "admin" },
-            { name: "Carlos Méndez", email: "carlos@cryomind.com", role: "medico" },
-            { name: "Beatriz Ríos", email: "beatriz@cryomind.com", role: "enfermero" },
-            { name: "David Torres", email: "david@cryomind.com", role: "medico" },
-            { name: "Elena Castro", email: "elena@cryomind.com", role: "enfermero" }
-        ];
+    let users = [];
 
-        // Mostrar lista de usuarios
+    try {
+        const token = localStorage.getItem("jwt");
+        if (!token) {
+            return redirectToLogin();
+        }
+
+        const res = await fetch("/users/users", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        if (!res.ok) {
+            if (res.status === 401 || res.status === 403) {
+                return redirectToLogin();
+            }
+            throw new Error(`Error al obtener usuarios: ${res.status}`);
+        }
+
+        const data = await res.json();
+        users = data.users || [];
+
         displayUsers(users);
 
-        // Event listener para búsqueda
-        document.querySelector('.search-input').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const filteredUsers = users.filter(user => 
-                user.name.toLowerCase().includes(searchTerm)
-            );
-            displayUsers(filteredUsers);
-        });
+    } catch (err) {
+        console.error("Error al cargar usuarios:", err);
+        alert("No se pudieron cargar los usuarios.");
     }
+
+    // Event listener para búsqueda
+    document.querySelector('.search-input').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredUsers = users.filter(user => 
+            user.nombre_usuario.toLowerCase().includes(searchTerm)
+        );
+        displayUsers(filteredUsers);
+    });
+}
+
 
     // Funciones auxiliares
     function displayUsers(users) {
@@ -124,10 +145,10 @@ document.addEventListener('DOMContentLoaded', function() {
         userList.innerHTML = users.map(user => `
             <li class="user-item">
                 <div class="user-info">
-                    <span class="user-name">${user.name}</span>
+                    <span class="user-name">${user.nombre_usuario}</span>
                     <span class="user-email">${user.email}</span>
                 </div>
-                <span class="user-role">${user.role}</span>
+                <span class="user-role">${user.rol}</span>
                 <button class="user-buttons" data_id="${user.name}">Detalles</button>
             </li>
         `).join('');
