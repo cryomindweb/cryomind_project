@@ -29,10 +29,11 @@ def create_patients_batch_service(data: list[PatientCreate]):
 
 def patient_list_service():
     try:
-        patients = supabase.table("pacientes").select("id_clinico, patient_name").execute()
-        return [True, {"patients": patients.data}]
+        patients = supabase.table("pacientes").select("id_clinico, nombre_completo").execute()
+        return [True, {"pacientes": patients.data or []}]
     except Exception as e:
-        return [False,  {'status_code': 500, 'detail': f"Error al obtener pacientes: {str(e)}"}]
+        return [False, {'status_code': 500, 'detail': f"Error al obtener pacientes: {str(e)}"}]
+
 
 def get_patient_service(id_clinico: str):
     try:

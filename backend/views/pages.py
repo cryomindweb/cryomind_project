@@ -21,6 +21,6 @@ async def forbidden_page(request: Request):
 async def admin_page(request: Request):
     return templates.TemplateResponse("admin.html", {"request": request})
 
-@router.get("/admin/user_register", response_class=HTMLResponse)
-async def admin_user_register_page(request: Request):
-    return templates.TemplateResponse("admin_user_register.html", {"request": request})
+@router.get("/medico", response_class=HTMLResponse)
+async def user_page(request: Request):
+    return templates.TemplateResponse("pacientes.html", {"request": request})

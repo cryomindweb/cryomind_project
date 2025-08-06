@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryoMind - Gestión de Pacientes</title>
+    <link rel="stylesheet" href="/static/css/pacientes.css">
+    <script src="/static/js/medico_auth.js"></script>
+    <script src="/static/js/pacientes.js"></script>
+</head>
+<body>
+    <div class="pacientes-container">
+        <header class="pacientes-header">
+            <h1 id="system-name">CryoMind</h1>
+            <div class="user-panel">
+                <span class="user-name" id="display-username"></span>
+                <span class="user-role" id="display-role"></span>
+                <button id="logout-btn" class="logout-button">
+                    Cerrar sesión
+                </button>
+            </div>
+        </header>
+
+        <main class="pacientes-content">
+            <div class="search-section">
+                <h2>Buscar Pacientes</h2>
+                <div class="search-form">
+                    <input type="text" id="search-input" placeholder="Buscar por nombre o ID clínico...">
+                </div>
+            </div>
+
+            <div class="patients-list-container">
+                <h3>Listado de Pacientes</h3>
+                <div class="table-responsive">
+                    <table id="patients-table">
+                        <thead>
+                            <tr>
+                                <th>ID Clínico</th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patients-list">
+                            <!-- Los pacientes se cargarán aquí dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

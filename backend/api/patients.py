@@ -36,13 +36,26 @@ def create_patient(data: PatientAllDataCreate):
 #create many patients
 @router.post("/patients/batch", status_code=201, summary="Registrar varios pacientes")
 def create_patients_batch(data: PatientBatchCreate):
-    return create_patients_batch_service(data.pacientes)
+    if not data.patients: # type: ignore
+        raise HTTPException(status_code=400, detail="No se proporcionaron pacientes para crear")
+    
+    responses = create_patients_batch_service(data.patients) # type: ignore
+    if not all(response[0] for response in responses):
+        raise HTTPException(status_code=500, detail="Error al crear algunos pacientes")
+    
+    return {"message": "Pacientes creados exitosamente", "responses": responses}
 
 @router.get("/patients", response_model=PatientListResponse, summary="Listar pacientes")
 def list_patients():
-    return patient_list_service()
+    status, response = patient_list_service()
+    if not status:
+        raise HTTPException(status_code=response['status_code'], detail=response['detail'])
+    return response
 
 @router.get("/patients/{patient_clinic_id}", response_model=PatientResponse, summary="Obtener paciente por ID clinico")
 def get_patient(patient_clinic_id: str):
-    return get_patient_service(patient_clinic_id)
+    status, response = get_patient_service(patient_clinic_id)
+    if not status:
+        raise HTTPException(status_code=response['status_code'], detail=response['detail'])
+    return response
 

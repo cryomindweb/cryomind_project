@@ -39,7 +39,8 @@ def create_user_service(data: UserCreate):
 
 def user_list_service():
     try:
-        result = supabase.table("usuarios").select("nombre_usuario, rol, email").execute()
+        result = supabase.table("usuarios").select("*").execute()
+        print(result.data)
         if not result.data:
             return [True, {"users": []}]
         return [True, {"users": result.data}]
@@ -61,12 +62,13 @@ def update_user_service(user_id: str, data: UserUpdate):
 
 def delete_user_service(user_id: str):
     try:
-        delete_result = supabase.table("usuarios").delete().eq("usuario_id", user_id).execute()
-        if delete_result.count == 0:
-            return [False,  {'status_code': 404, 'detail': "Usuario no encontrado"}]
+        # Eliminar de Auth (esto requiere service_role key)
+        supabase.auth.admin.delete_user(user_id)
+        # No es necesario eliminar de la tabla "usuarios" si tienes cascade delete
         return [True, {"message": "Usuario eliminado exitosamente"}]
     except Exception as e:
-        return [False,  {'status_code': 500, 'detail': f"Error eliminando usuario: {str(e)}"}]
+        return [False, {'status_code': 500, 'detail': f"Error eliminando usuario: {str(e)}"}]
+
 
 def get_user_service(nombre_usuario: str):
     try:

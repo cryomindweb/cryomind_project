@@ -21,19 +21,12 @@ def require_admin(credentials=Depends(security)):
         )
 
     # Verificar rol en la base de datos
-    rol_resp = supabase.table("usuarios").select("rol").eq("usuario_id", user_id).single().execute()
+    rol_resp = supabase.table("usuarios").select("rol").eq("usuario_id", user_id).execute()
     if not rol_resp.data:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Usuario no encontrado")
 
-    if rol_resp.data["rol"].lower() != "administrador":
+    if rol_resp.data[0]["rol"].lower() != "administrador":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acceso solo para administradores")
-
-    return {
-        "usuario_id": user_id,
-        "email": claims.get("email"),
-        "rol": rol_resp.data["rol"],
-        "token": token
-    }
 
 def require_medico(credentials=Depends(security)):
     token = credentials.credentials
@@ -56,9 +49,3 @@ def require_medico(credentials=Depends(security)):
 
     if rol_resp.data["rol"].lower() != "medico":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acceso solo para médicos")
-
-    return {
-        "usuario_id": user_id,
-        "email": claims.get("email"),
-        "rol": rol_resp.data["rol"]
-    }

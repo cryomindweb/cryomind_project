@@ -8,6 +8,7 @@ class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
     role: str
+    nombre_usuario: str # opcional, si se desea incluir el nombre de usuario
 
 class LoginData(BaseModel):
     username: str  # email
@@ -33,7 +34,7 @@ def login(data: LoginData):
     # 2. Obtener rol desde tabla personalizada 'usuarios'
     try:
         rol_resp = supabase.table("usuarios") \
-            .select("rol") \
+            .select("nombre_usuario, rol") \
             .eq("usuario_id", user.id) \
             .single() \
             .execute()
@@ -44,9 +45,10 @@ def login(data: LoginData):
         raise HTTPException(status_code=403, detail="Usuario sin rol asignado")
 
     role = rol_resp.data["rol"]
-
+    nombre_usuario = rol_resp.data["nombre_usuario"] # .lower().replace(" ", "_")
     # 3. Devolver token + rol
     return TokenResponse(
         access_token=access_token,
-        role=role
+        role=role,
+        nombre_usuario=nombre_usuario
     )

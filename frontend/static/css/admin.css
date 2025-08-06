@@ -341,7 +341,7 @@
 }
 
 .user-buttons {
-    background-color: var(--dark-cyan);
+    background-color: var(--blush);
     color: white;
     padding: 0.3rem 0.8rem;
     border-radius: 10px;
@@ -349,7 +349,7 @@
 }
 
 .user-buttons:hover {
-    background-color: var(--dark-cyan);
+    background-color: var(--blush);
     transform: scale(1.05);
 }
 /* Mensaje de bienvenida */

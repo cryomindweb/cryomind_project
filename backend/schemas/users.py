@@ -14,6 +14,7 @@ class UserUpdate(BaseModel):
     rol: Optional[str] = None  # debe ser 'administrador' o 'medico'
 
 class UserResponse(BaseModel):
+    usuario_id: str
     nombre_usuario: str
     rol: str  # debe ser 'administrador' o 'medico'
     email: EmailStr

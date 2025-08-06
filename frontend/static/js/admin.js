@@ -149,9 +149,45 @@ document.addEventListener('DOMContentLoaded', function() {
                     <span class="user-email">${user.email}</span>
                 </div>
                 <span class="user-role">${user.rol}</span>
-                <button class="user-buttons" data_id="${user.name}">Detalles</button>
+                <button class="user-buttons" data_id="${user.usuario_id}">Eliminar</button>
             </li>
         `).join('');
+        setupDeleteButtons();
+    }
+
+    function setupDeleteButtons() {
+        document.querySelectorAll('.user-buttons').forEach(button => {
+            button.addEventListener('click', async function () {
+                const userId = this.getAttribute('data_id');
+                const token = localStorage.getItem("jwt");
+
+                if (!confirm("¿Seguro que deseas eliminar este usuario?")) {
+                    return;
+                }
+
+                try {
+                    const res = await fetch(`/users/users/${userId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (!res.ok) {
+                        const errData = await res.json();
+                        throw new Error(errData.detail || "Error al eliminar usuario");
+                    }
+
+                    alert("Usuario eliminado exitosamente");
+                    // Recargar la lista de usuarios
+                    showSearchView();
+
+                } catch (err) {
+                    console.error("Error eliminando usuario:", err);
+                    alert(`Error: ${err.message}`);
+                }
+            });
+        });
     }
 
     function setActiveMenuItem(activeItem) {
@@ -228,7 +264,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (e.target.classList.contains('confirm')) {
                 // Eliminar token y redirigir
                 localStorage.removeItem('jwt');
-                localStorage.removeItem('userType');
+                localStorage.removeItem('role');
+                localStorage.removeItem('username');
                 window.location.href = '/';
             } else if (e.target.classList.contains('cancel') || e.target === modal) {
                 modal.style.display = 'none';

@@ -19,17 +19,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify({
                     username: usernameInput.value.trim(),
-                    password: passwordInput.value.trim()
+                    password: passwordInput.value.trim(),
                 })
             });
             if (response.ok) {
                 const data = await response.json();
                 localStorage.setItem('jwt', data.access_token);
                 localStorage.setItem("role", data.role);
+                localStorage.setItem('username', data.nombre_usuario);
                 if (data.role === 'administrador') {
                     window.location.href = '/admin';
                 } else if (data.role === 'medico') {
-                    window.location.href = `/${data.username}`;
+                    console.log('Login exitoso:', data);
+                    window.location.href = `/medico`;
                 } else {
                     showError('Tipo de usuario no reconocido');
                 }

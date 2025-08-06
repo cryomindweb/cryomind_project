@@ -1,0 +1,240 @@
+:root {
+    --dark-cyan: #048a81;
+    --russian-violet: #320e3b;
+    --seasalt: #fcfaf9;
+    --blush: #da627d;
+    --glaucous: #6b7fd7;
+    --ebony: #656256;
+}
+
+/* Estilos generales */
+.pacientes-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--seasalt);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Encabezado */
+.pacientes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--russian-violet);
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.pacientes-header h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: var(--seasalt);
+    font-weight: 600;
+}
+
+.user-panel {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.user-name {
+    font-weight: 500;
+    color: var(--seasalt);
+}
+
+.user-role {
+    background-color: var(--dark-cyan);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.logout-button {
+    background-color: var(--blush);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #c04d68;
+    transform: translateY(-2px);
+}
+
+.logout-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.modal-btn {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.modal-btn.confirm {
+    background-color: var(--blush);
+    color: white;
+}
+
+.modal-btn.cancel {
+    background-color: var(--glaucous);
+    color: white;
+}
+
+.modal-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+/* Contenido principal */
+.pacientes-content {
+    padding: 2rem;
+    flex: 1;
+}
+
+.search-section {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.search-section h2 {
+    color: var(--russian-violet);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.search-form input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border 0.3s;
+}
+
+.search-form input:focus {
+    outline: none;
+    border-color: var(--glaucous);
+    box-shadow: 0 0 0 2px rgba(107, 127, 215, 0.2);
+}
+
+/* Listado de pacientes */
+.patients-list-container {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.patients-list-container h3 {
+    color: var(--russian-violet);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: var(--seasalt);
+    color: var(--russian-violet);
+    font-weight: 600;
+}
+
+tr:hover {
+    background-color: rgba(107, 127, 215, 0.05);
+}
+
+.action-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.view-btn {
+    background-color: var(--glaucous);
+    color: white;
+}
+
+.view-btn:hover {
+    background-color: #5a6dc7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .pacientes-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+    
+    .user-panel {
+        margin-top: 1rem;
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .pacientes-content {
+        padding: 1rem;
+    }
+    
+    th, td {
+        padding: 0.8rem 0.5rem;
+    }
+}
