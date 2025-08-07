@@ -47,14 +47,14 @@ def create_patients_batch(data: PatientBatchCreate):
     
     return {"message": "Pacientes creados exitosamente", "responses": responses}
 
-@router.get("/patients", response_model=PatientListResponse, summary="Listar pacientes")
+@router.get("/", response_model=PatientListResponse, summary="Listar pacientes")
 def list_patients():
     status, response = patient_list_service()
     if not status:
         raise HTTPException(status_code=response['status_code'], detail=response['detail'])
     return response
 
-@router.get("/patients/{patient_clinic_id}", response_model=PatientResponse, summary="Obtener paciente por ID clinico")
+@router.get("/{patient_clinic_id}", response_model=PatientResponse, summary="Obtener paciente por ID clinico")
 def get_patient(patient_clinic_id: str):
     status, response = get_patient_service(patient_clinic_id)
     if not status:

@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return redirectToLogin();
         }
 
-        const res = await fetch("/users/users", {
+        const res = await fetch("/users/", {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 try {
-                    const res = await fetch(`/users/users/${userId}`, {
+                    const res = await fetch(`/users/${userId}`, {
                         method: 'DELETE',
                         headers: {
                             'Authorization': `Bearer ${token}`

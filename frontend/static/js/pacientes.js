@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Función para cargar pacientes
     async function loadPatients() {
         try {
-            const response = await fetch('/patients/patients', {
+            const response = await fetch('/patients/', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
