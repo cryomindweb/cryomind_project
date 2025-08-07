@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from schemas.temperatures import TemperatureCreate, TemperatureListResponse
+from schemas.temperatures import TemperatureCreate, TemperatureListResponse, TemperatureBatchCreate, TemperatureResponse
 from services.temperatures import create_temperature_service, create_temperature_batch_service, temperature_list_service, get_temperature_service
 from typing import List
 
@@ -13,11 +13,11 @@ def create_temperature(data: TemperatureCreate):
     return {"message": "Temperatura creada exitosamente", "data": response['data']}
 
 @router.post("/temperatures/batch", status_code=201, summary="Registrar varias temperaturas")
-def create_temperature_batch(data: List[TemperatureCreate]):
+def create_temperature_batch(data: TemperatureBatchCreate):
     responses = create_temperature_batch_service(data)
     if not all(response[0] for response in responses):
         raise HTTPException(status_code=500, detail="Error al crear algunas temperaturas")
-    return {"message": "Temperaturas creadas exitosamente", "data": [response[1]['data'] for response in responses if response[0]]}
+    return {"message": "Temperaturas creadas exitosamente"}
 
 @router.get("/temperatures/{id_clinico}", response_model=TemperatureListResponse, summary="Listar temperaturas por ID clínico")
 def list_temperatures(id_clinico: str):

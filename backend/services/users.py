@@ -40,7 +40,6 @@ def create_user_service(data: UserCreate):
 def user_list_service():
     try:
         result = supabase.table("usuarios").select("*").execute()
-        print(result.data)
         if not result.data:
             return [True, {"users": []}]
         return [True, {"users": result.data}]

@@ -24,3 +24,7 @@ async def admin_page(request: Request):
 @router.get("/medico", response_class=HTMLResponse)
 async def user_page(request: Request):
     return templates.TemplateResponse("pacientes.html", {"request": request})
+
+@router.get("/medico/{id_paciente}", response_class=HTMLResponse)
+async def patient_detail_page(request: Request, id_paciente: int):
+    return templates.TemplateResponse("paciente.html", {"request": request, "id_paciente": id_paciente})

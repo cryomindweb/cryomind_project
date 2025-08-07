@@ -8,6 +8,7 @@ def create_treatment_service(data: TreatmentResponse):
             "fecha_tratamiento": data.fecha_tratamiento,
             "hora_inicio": data.hora_inicio,
             "hora_finalizacion": data.hora_finalizacion,
+            "observaciones": data.observaciones,
             "setpoint": data.setpoint
         }).execute()
         if not insert_result.data:
@@ -16,11 +17,14 @@ def create_treatment_service(data: TreatmentResponse):
     except Exception as e:
         return [False,  {'status_code': 500, 'detail': f"Error creando tratamiento: {str(e)}"}]
 
-def get_treatment_service(patient_id: str):
+def get_treatment_service(id_clinico: str):
     try:
-        treatment = supabase.table("tratamientos").select("*").eq("paciente_id", patient_id).execute()
+        treatment = supabase.table("tratamientos").select("id_clinico, fecha_tratamiento, hora_inicio, hora_finalizacion, observaciones, setpoint").eq("id_clinico", id_clinico).execute()
+        print(treatment.data)
         if not treatment.data:
+            print("Tratamiento no encontrado")
             return [False,  {'status_code': 500, 'detail': "Tratamiento no encontrado"}]
         return [True, TreatmentResponse(**treatment.data[0])]
     except Exception as e:
+        print(f"Error obteniendo tratamiento: {str(e)}")
         return [False,  {'status_code': 500, 'detail': f"Error obteniendo tratamiento: {str(e)}"}]

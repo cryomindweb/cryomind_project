@@ -9,7 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cargar información del usuario
     const username = localStorage.getItem('username') || 'Usuario';
     const role = localStorage.getItem('role') || 'Rol no definido';
-    
+    const currentPath = window.location.pathname;
+    if (currentPath === "/medico") {
+        localStorage.removeItem('selectedPatientId');
+    }
+
     displayUsername.textContent = username;
     displayRole.textContent = role;
 
@@ -133,9 +137,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Función para ver detalles del paciente
     function viewPatientDetails(patientId) {
-        console.log(`Ver paciente con ID: ${patientId}`);
-        alert(`Mostrando detalles del paciente ID: ${patientId}`);
-        // Ejemplo: window.location.href = `/paciente.html?id=${patientId}`;
+        localStorage.setItem('selectedPatientId', patientId);
+        window.location.href = `/medico/${patientId}`;
     }
 
 });

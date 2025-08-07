@@ -23,15 +23,16 @@ class PatientAllDataCreate(BaseModel):
     semanas_gestacion: int = Field(..., description="Semanas de gestación del paciente")
     dias_gestacion: int = Field(..., description="Días de gestación del paciente")
     fecha_tratamiento: str = Field(..., description="Fecha del tratamiento (YYYY-MM-DD)")
-    hora_inicio: int = Field(..., description="Hora de inicio del tratamiento (HH)")
-    hora_finalizacion: int = Field(..., description="Hora de fin del tratamiento (HH)")
+    hora_inicio: str = Field(..., description="Hora de inicio del tratamiento (HH)")
+    hora_finalizacion: str = Field(..., description="Hora de fin del tratamiento (HH)")
+    observaciones: str = Field(..., description="Observaciones del tratamiento")
     setpoint: float = Field(..., description="Setpoint del tratamiento")
 
 class PatientBatchCreate(BaseModel):
-    pacientes: List[PatientCreate] = Field(..., description="Lista de pacientes a registrar en lote")
+    pacientes: List[PatientAllDataCreate] = Field(..., description="Lista de pacientes a registrar en lote")
 
 class PatientResponse(BaseModel):
-    patient_id: str = Field(..., description="ID del paciente")
+    paciente_id: str = Field(..., description="ID del paciente")
     id_clinico: str = Field(..., description="ID clinico del paciente")
     nombre_completo: str = Field(..., description="Nombre del paciente")
     nombre_progenitor: str = Field(..., description="Progenitor del paciente")

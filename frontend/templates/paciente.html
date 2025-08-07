@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryoMind - Detalle de Paciente</title>
+    <link rel="stylesheet" href="/static/css/paciente.css">
+    <script src="/static/js/medico_auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/js/paciente.js"></script>
+</head>
+<body>
+    <div class="paciente-container">
+        <header class="paciente-header">
+            <h1 id="system-name">CryoMind</h1>
+            <div class="user-panel">
+                <span class="user-name" id="display-username"></span>
+                <span class="user-role" id="display-role"></span>
+                <button id="logout-btn" class="logout-button">
+                    Cerrar sesión
+                </button>
+            </div>
+        </header>
+
+        <main class="paciente-content">
+            <div class="patient-header">
+                <h2 id="patient-name">Cargando datos del paciente...</h2>
+                <div class="patient-id">
+                    <span>ID Clínico: </span>
+                    <span id="clinical-id">-</span>
+                </div>
+            </div>
+
+            <div class="patient-details-grid">
+                <section class="patient-info-card">
+                    <h3>Información del Paciente</h3>
+                    <div class="info-grid" id="patient-info">
+                        <!-- Datos del paciente se cargarán aquí -->
+                    </div>
+                </section>
+
+                <section class="treatment-info-card">
+                    <h3>Tratamiento</h3>
+                    <div class="info-grid" id="treatment-info">
+                        <!-- Datos del tratamiento se cargarán aquí -->
+                    </div>
+                </section>
+
+                <section class="temperature-card">
+                    <h3>Monitoreo de Temperatura</h3>
+                    <div class="chart-container">
+                        <canvas id="temperature-chart"></canvas>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

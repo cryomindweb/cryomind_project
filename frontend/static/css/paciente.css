@@ -8,7 +8,7 @@
 }
 
 /* Estilos generales */
-.pacientes-container {
+.paciente-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -17,7 +17,7 @@
 }
 
 /* Encabezado */
-.pacientes-header {
+.paciente-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -27,7 +27,7 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.pacientes-header h1 {
+.paciente-header h1 {
     font-size: 1.8rem;
     margin: 0;
     color: var(--seasalt);
@@ -124,101 +124,103 @@
     opacity: 0.9;
     transform: translateY(-2px);
 }
+
 /* Contenido principal */
-.pacientes-content {
+.paciente-content {
     padding: 2rem;
     flex: 1;
 }
 
-.search-section {
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+.patient-header {
     margin-bottom: 2rem;
-}
-
-.search-section h2 {
-    color: var(--russian-violet);
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-}
-
-.search-form input {
-    width: 95%;
-    padding: 0.8rem 1rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: border 0.3s;
-}
-
-.search-form input:focus {
-    outline: none;
-    border-color: var(--glaucous);
-    box-shadow: 0 0 0 2px rgba(107, 127, 215, 0.2);
-}
-
-/* Listado de pacientes */
-.patients-list-container {
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.patients-list-container h3 {
-    color: var(--russian-violet);
-    margin-bottom: 1.5rem;
-    font-size: 1.3rem;
-}
-
-.table-responsive {
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 1rem;
-    text-align: left;
+    padding-bottom: 1rem;
     border-bottom: 1px solid #eee;
 }
 
-th {
-    background-color: var(--seasalt);
+.patient-header h2 {
     color: var(--russian-violet);
-    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
-tr:hover {
-    background-color: rgba(107, 127, 215, 0.05);
+.patient-id {
+    display: flex;
+    gap: 0.5rem;
+    color: var(--ebony);
+    font-size: 1rem;
 }
 
-.action-btn {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
+.patient-id span:first-child {
+    font-weight: 500;
+}
+
+/* Grid de detalles */
+.patient-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+}
+
+.patient-info-card,
+.treatment-info-card,
+.temperature-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.temperature-card {
+    grid-column: span 2;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.info-item {
+    margin-bottom: 1rem;
+}
+
+.info-label {
+    font-weight: 500;
+    color: var(--russian-violet);
+    margin-bottom: 0.3rem;
     font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.2s;
 }
 
-.view-btn {
-    background-color: var(--glaucous);
-    color: white;
+.info-value {
+    color: var(--ebony);
+    padding: 0.5rem;
+    background-color: var(--seasalt);
+    border-radius: 4px;
+    font-size: 0.95rem;
 }
 
-.view-btn:hover {
-    background-color: #5a6dc7;
+/* Gráfica de temperatura */
+.chart-container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+    margin-top: 1.5rem;
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+    .patient-details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .temperature-card {
+        grid-column: span 1;
+    }
+}
+
 @media (max-width: 768px) {
-    .pacientes-header {
+    .paciente-header {
         flex-direction: column;
         align-items: flex-start;
         padding: 1rem;
@@ -230,11 +232,11 @@ tr:hover {
         justify-content: space-between;
     }
     
-    .pacientes-content {
+    .paciente-content {
         padding: 1rem;
     }
     
-    th, td {
-        padding: 0.8rem 0.5rem;
+    .info-grid {
+        grid-template-columns: 1fr;
     }
 }

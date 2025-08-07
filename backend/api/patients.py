@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from schemas.patients import PatientAllDataCreate, PatientListResponse, PatientResponse, PatientBatchCreate
-from services.patients import create_patient_service, patient_list_service, get_patient_service, create_patients_batch_service
+from schemas.treatments import TreatmentResponse
+from services.patients import create_patient_service, patient_list_service, get_patient_service, create_patients_batch_service, PatientCreate
 from services.treatments import create_treatment_service
 
 router = APIRouter()
@@ -23,9 +24,10 @@ def create_patient(data: PatientAllDataCreate):
             "fecha_tratamiento": data.fecha_tratamiento,
             "hora_inicio": data.hora_inicio,
             "hora_finalizacion": data.hora_finalizacion,
+            "observaciones": data.observaciones,
             "setpoint": data.setpoint
         }
-    patient_status, patient_response = create_patient_service(PatientAllDataCreate(**patient_data)) # type: ignore
+    patient_status, patient_response = create_patient_service(PatientCreate(**patient_data)) # type: ignore
     if not patient_status:
         raise HTTPException(status_code=patient_response['status_code'], detail=patient_response['detail'])
     treatment_status, treatment_response = create_treatment_service(TreatmentResponse(**tratment_data)) # type: ignore
