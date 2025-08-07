@@ -1,0 +1,415 @@
+:root {
+    --dark-cyan: #048a81;
+    --russian-violet: #320e3b;
+    --seasalt: #fcfaf9;
+    --blush: #da627d;
+    --glaucous: #6b7fd7;
+    --ebony: #656256;
+}
+
+/* Estilos generales para la página de administrador */
+.admin-container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "header header"
+        "sidebar content";
+    min-height: 100vh;
+    background-color: var(--seasalt);
+}
+
+.admin-header {
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--russian-violet);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    /* Añade estas propiedades: */
+    flex-wrap: nowrap;
+    min-width: 0; /* Permite que los elementos hijos se ajusten */
+}
+
+.admin-header h1 {
+    font-size: 1.8rem;
+    color: var(--seasalt);
+    margin: 0;
+}
+
+.admin-header .user-info {
+    display: flex; /* Cambiado de inline-block a flex */
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+.logout-button {
+    /* Asegúrate que el botón tenga estas propiedades: */
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.user-badge {
+    background-color: var(--dark-cyan);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    /* Añade estas propiedades: */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* Ajusta según necesidad */
+}
+
+.admin-sidebar {
+    grid-area: sidebar;
+    background-color: white;
+    padding: 1.5rem;
+    border-right: 1px solid #eee;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+}
+
+.sidebar-title {
+    color: var(--russian-violet);
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--glaucous);
+}
+
+.admin-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item {
+    margin-bottom: 0.5rem;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    color: var(--ebony);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.menu-link:hover {
+    background-color: rgba(107, 127, 215, 0.1); /* Glaucous con transparencia */
+    color: var(--russian-violet);
+    transform: translateX(5px);
+}
+
+.menu-link .menu-icon {
+    margin-right: 0.8rem;
+    font-size: 1.1rem;
+}
+
+.admin-content {
+    grid-area: content;
+    padding: 2rem;
+    background-color: var(--seasalt);
+}
+
+.logout-button {
+    background-color: var(--blush);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    margin-left: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #c04d68;
+    transform: scale(1.05);
+}
+
+.logout-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.modal-btn {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.modal-btn.confirm {
+    background-color: var(--blush);
+    color: white;
+}
+
+.modal-btn.cancel {
+    background-color: var(--glaucous);
+    color: white;
+}
+
+.modal-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* Estilos para las vistas dinámicas */
+
+/* Formulario de registro */
+.registration-form {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-title {
+    color: var(--russian-violet);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--russian-violet);
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--glaucous);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.form-btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submit-btn {
+    background-color: var(--dark-cyan);
+    color: white;
+}
+
+.submit-btn:hover {
+    background-color: #037a72;
+    transform: translateY(-2px);
+}
+
+.cancel-btn {
+    background-color: var(--ebony);
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #565347;
+    transform: translateY(-2px);
+}
+
+/* Buscador de usuarios */
+.search-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.search-form {
+    margin-bottom: 2rem;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-item {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-item:last-child {
+    border-bottom: none;
+}
+
+.user-list .user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: bold;
+    color: var(--russian-violet);
+}
+
+.user-email {
+    color: var(--ebony);
+    font-size: 0.9rem;
+}
+
+.user-role {
+    background-color: var(--glaucous);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+.user-buttons {
+    background-color: var(--blush);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+.user-buttons:hover {
+    background-color: var(--blush);
+    transform: scale(1.05);
+}
+/* Mensaje de bienvenida */
+.welcome-message {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.welcome-message h2 {
+    color: var(--russian-violet);
+    margin-bottom: 1rem;
+}
+
+.welcome-message p {
+    color: var(--ebony);
+    font-size: 1.1rem;
+}
+
+/* Ítem de menú activo */
+.menu-item.active .menu-link {
+    background-color: rgba(107, 127, 215, 0.2);
+    color: var(--russian-violet);
+    font-weight: bold;
+    border-left: 4px solid var(--glaucous);
+}
+
+/* Transiciones para cambios de vista */
+.view-transition {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "content";
+    }
+
+    .admin-sidebar {
+        display: none; /* Puedes convertirlo en un menú hamburguesa */
+    }
+
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .user-info {
+        margin-top: 1rem;
+    }
+}

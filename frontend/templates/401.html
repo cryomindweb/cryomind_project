@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryoMind - Acceso no autorizado</title>
+    <link rel="stylesheet" href="../static/css/errors.css">
+</head>
+<body>
+    <div class="error-container">
+        <header class="error-header">
+            <h1>CryoMind</h1>
+            <div class="error-code">
+                <span class="error-badge">Error 401</span>
+            </div>
+        </header>
+
+        <main class="error-content">
+            <div class="error-card">
+                <div class="error-icon">🔒</div>
+                <h2>Acceso no autorizado</h2>
+                <p>No tienes permisos para acceder a este recurso.</p>
+                <p class="error-detail">Por favor, inicia sesión con credenciales válidas.</p>
+                <div class="error-actions">
+                    <a href="/login" class="error-btn primary-btn">Iniciar sesión</a>
+                    <a href="/" class="error-btn secondary-btn">Ir al inicio</a>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

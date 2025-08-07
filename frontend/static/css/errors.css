@@ -1,0 +1,133 @@
+/* Estilos específicos para página 404 */
+:root {
+    --dark-cyan: #048a81;
+    --russian-violet: #320e3b;
+    --seasalt: #fcfaf9;
+    --blush: #da627d;
+    --glaucous: #6b7fd7;
+    --ebony: #656256;
+}
+
+.error-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--seasalt);
+}
+
+.error-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--russian-violet);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.error-header h1 {
+    font-size: 1.8rem;
+    color: var(--seasalt);
+    margin: 0;
+}
+
+.error-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.error-card {
+    background-color: white;
+    padding: 3rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.error-icon {
+    font-size: 4rem;
+    color: var(--blush);
+    margin-bottom: 1.5rem;
+}
+
+.error-card h2 {
+    color: var(--russian-violet);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.error-card p {
+    color: var(--ebony);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.error-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.error-detail {
+    font-size: 1rem;
+    color: var(--ebony);
+    opacity: 0.8;
+    margin-top: 1.5rem;
+}
+
+.error-btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.primary-btn {
+    background-color: var(--dark-cyan);
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: #037a72;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(4, 138, 129, 0.3);
+}
+
+.secondary-btn {
+    background-color: var(--glaucous);
+    color: white;
+}
+
+.secondary-btn:hover {
+    background-color: #5a6dc7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(107, 127, 215, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .error-actions {
+        flex-direction: column;
+    }
+    
+    .error-btn {
+        width: 100%;
+    }
+    
+    .error-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .user-info {
+        margin-top: 1rem;
+    }
+}

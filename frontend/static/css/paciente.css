@@ -1,0 +1,242 @@
+:root {
+    --dark-cyan: #048a81;
+    --russian-violet: #320e3b;
+    --seasalt: #fcfaf9;
+    --blush: #da627d;
+    --glaucous: #6b7fd7;
+    --ebony: #656256;
+}
+
+/* Estilos generales */
+.paciente-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--seasalt);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Encabezado */
+.paciente-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--russian-violet);
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.paciente-header h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: var(--seasalt);
+    font-weight: 600;
+}
+
+.user-panel {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.user-name {
+    font-weight: 500;
+    color: var(--seasalt);
+}
+
+.user-role {
+    background-color: var(--dark-cyan);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.logout-button {
+    background-color: var(--blush);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #c04d68;
+    transform: translateY(-2px);
+}
+
+.logout-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.modal-btn {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.modal-btn.confirm {
+    background-color: var(--blush);
+    color: white;
+}
+
+.modal-btn.cancel {
+    background-color: var(--glaucous);
+    color: white;
+}
+
+.modal-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* Contenido principal */
+.paciente-content {
+    padding: 2rem;
+    flex: 1;
+}
+
+.patient-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.patient-header h2 {
+    color: var(--russian-violet);
+    margin-bottom: 0.5rem;
+}
+
+.patient-id {
+    display: flex;
+    gap: 0.5rem;
+    color: var(--ebony);
+    font-size: 1rem;
+}
+
+.patient-id span:first-child {
+    font-weight: 500;
+}
+
+/* Grid de detalles */
+.patient-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+}
+
+.patient-info-card,
+.treatment-info-card,
+.temperature-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.temperature-card {
+    grid-column: span 2;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.info-item {
+    margin-bottom: 1rem;
+}
+
+.info-label {
+    font-weight: 500;
+    color: var(--russian-violet);
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+}
+
+.info-value {
+    color: var(--ebony);
+    padding: 0.5rem;
+    background-color: var(--seasalt);
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+/* Gráfica de temperatura */
+.chart-container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .patient-details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .temperature-card {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .paciente-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+    
+    .user-panel {
+        margin-top: 1rem;
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .paciente-content {
+        padding: 1rem;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
