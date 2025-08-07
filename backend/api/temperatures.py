@@ -5,14 +5,14 @@ from typing import List
 
 router = APIRouter()
 
-@router.post("/temperatures", status_code=201, summary="Registrar nueva temperatura")
+@router.post("/", status_code=201, summary="Registrar nueva temperatura")
 def create_temperature(data: TemperatureCreate):
     status, response = create_temperature_service(data)
     if not status:
         raise HTTPException(status_code=response['status_code'], detail=response['detail'])
     return {"message": "Temperatura creada exitosamente", "data": response['data']}
 
-@router.post("/temperatures/batch", status_code=201, summary="Registrar varias temperaturas")
+@router.post("/batch", status_code=201, summary="Registrar varias temperaturas")
 def create_temperature_batch(data: TemperatureBatchCreate):
     responses = create_temperature_batch_service(data)
     if not all(response[0] for response in responses):

@@ -6,7 +6,7 @@ from services.treatments import create_treatment_service
 
 router = APIRouter()
 
-@router.post("/patients", status_code=201, summary="Registrar nuevo paciente")
+@router.post("/", status_code=201, summary="Registrar nuevo paciente")
 def create_patient(data: PatientAllDataCreate):
     patient_data = {
             "id_clinico": data.id_clinico,
@@ -36,7 +36,7 @@ def create_patient(data: PatientAllDataCreate):
     return {"message": "Paciente y tratamiento creados exitosamente"}
 
 #create many patients
-@router.post("/patients/batch", status_code=201, summary="Registrar varios pacientes")
+@router.post("/batch", status_code=201, summary="Registrar varios pacientes")
 def create_patients_batch(data: PatientBatchCreate):
     if not data.patients: # type: ignore
         raise HTTPException(status_code=400, detail="No se proporcionaron pacientes para crear")
