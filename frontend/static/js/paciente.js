@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Función para cargar datos del paciente
     async function loadPatientData(patientId) {
         try {
-            const response = await fetch(`/patients/patients/${patientId}`, {
+            const response = await fetch(`/patients/${patientId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Función para cargar datos del tratamiento
     async function loadTreatmentData(patientId) {
         try {
-            const response = await fetch(`/treatments/treatments/${patientId}`, {
+            const response = await fetch(`/treatments/${patientId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Función para cargar datos de temperatura
     async function loadTemperatureData(patientId) {
         try {
-            const response = await fetch(`/temperatures/temperatures/${patientId}`, {
+            const response = await fetch(`/temperatures/${patientId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('jwt')}`,

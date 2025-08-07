@@ -4,7 +4,7 @@ from services.treatments import get_treatment_service
 
 router = APIRouter()
 
-@router.get("/treatments/{patient_id}", response_model=TreatmentResponse, summary="Obtener tratamiento por ID de paciente")
+@router.get("/{patient_id}", response_model=TreatmentResponse, summary="Obtener tratamiento por ID de paciente")
 def get_treatment(patient_id: str):
     success, response = get_treatment_service(patient_id)
     if not success:

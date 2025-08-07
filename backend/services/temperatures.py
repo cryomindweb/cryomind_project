@@ -16,7 +16,7 @@ def create_temperature_service(temperature_data: TemperatureCreate):
         response = supabase.table("temperaturas").insert(data).execute()
         if not response.data:
             return [False, {'status_code': 500, 'detail': "No se pudo crear la temperatura"}]
-        return [True, {"message": "Temperatura creada exitosamente", "data": response.data[0]}]
+        return [True, {"message": "Temperatura creada exitosamente"}]
     except Exception as e:
         return [False, {'status_code': 500, 'detail': f"Error creando temperatura: {str(e)}"}]
 
@@ -34,7 +34,7 @@ def create_temperature_from_batch_service(temperature_data: TemperatureBatchStru
         response = supabase.table("temperaturas").insert(data).execute()
         if not response.data:
             return [False, {'status_code': 500, 'detail': "No se pudo crear la temperatura"}]
-        return [True, {"message": "Temperatura creada exitosamente", "data": response.data[0]}]
+        return [True, {"message": "Temperatura creada exitosamente"}]
     except Exception as e:
         return [False, {'status_code': 500, 'detail': f"Error creando temperatura: {str(e)}"}]
     

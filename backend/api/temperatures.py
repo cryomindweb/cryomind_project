@@ -19,14 +19,14 @@ def create_temperature_batch(data: TemperatureBatchCreate):
         raise HTTPException(status_code=500, detail="Error al crear algunas temperaturas")
     return {"message": "Temperaturas creadas exitosamente"}
 
-@router.get("/temperatures/{id_clinico}", response_model=TemperatureListResponse, summary="Listar temperaturas por ID clínico")
+@router.get("/{id_clinico}", response_model=TemperatureListResponse, summary="Listar temperaturas por ID clínico")
 def list_temperatures(id_clinico: str):
     status, response = temperature_list_service(id_clinico)
     if not status:
         raise HTTPException(status_code=response['status_code'], detail=response['detail'])
     return response
 
-@router.get("/temperatures/{id_clinico}/{marca_temporal}", summary="Obtener temperatura por ID clínico y marca temporal")
+@router.get("/{id_clinico}/{marca_temporal}", summary="Obtener temperatura por ID clínico y marca temporal")
 def get_temperature(id_clinico: str, marca_temporal: int):
     status, response = get_temperature_service(id_clinico, marca_temporal)
     if not status:
