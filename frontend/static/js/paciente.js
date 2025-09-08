@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Función para renderizar datos del paciente
+// Función para renderizar datos del paciente
     function renderPatientData(patient) {
         patientName.textContent = patient.nombre_completo || 'Nombre no disponible';
         clinicalId.textContent = patient.id_clinico || 'N/A';
@@ -94,19 +95,27 @@ document.addEventListener('DOMContentLoaded', function() {
         const patientFields = [
             { label: 'Progenitor', value: patient.nombre_progenitor || 'N/A' },
             { label: 'Fecha de Nacimiento', value: patient.fecha_nacimiento || 'N/A' },
-            { label: 'Hora de Nacimiento', value: patient.hora_nacimiento || 'N/A' },
-            { label: 'Minutos', value: patient.minuto_nacimiento || 'N/A' },
-            { label: 'Peso', value: patient.peso ? `${patient.peso} kg` : 'N/A' },
             { label: 'Semanas de Gestación', value: patient.semanas_gestacion || 'N/A' },
-            { label: 'Días de Gestación', value: patient.dias_gestacion || 'N/A' }
+            { label: 'Días de Gestación', value: patient.dias_gestacion || 'N/A' },
+            { label: 'Peso', value: patient.peso ? `${patient.peso} kg` : 'N/A' },
+            // Título añadido
+            { type: 'title', content: 'Tiempo desde el Nacimiento' },
+            { label: 'Hora de Nacimiento', value: patient.hora_nacimiento || 'N/A' },
+            { label: 'Minutos de Nacimiento', value: patient.minuto_nacimiento || 'N/A' }
         ];
 
-        patientInfo.innerHTML = patientFields.map(field => `
-            <div class="info-item">
-                <div class="info-label">${field.label}</div>
-                <div class="info-value">${field.value}</div>
-            </div>
-        `).join('');
+        patientInfo.innerHTML = patientFields.map(field => {
+            if (field.type === 'title') {
+                return `<div class="info-title">${field.content}</div>`;
+            } else {
+                return `
+                    <div class="info-item">
+                        <div class="info-label">${field.label}</div>
+                        <div class="info-value">${field.value}</div>
+                    </div>
+                `;
+            }
+        }).join('');
     }
 
     // Función para cargar datos del tratamiento
@@ -184,22 +193,24 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderTemperatureChart(temperatureData) {
         const ctx = document.getElementById('temperature-chart').getContext('2d');
 
-        const labels = temperatureData.map(item => item.marca_temporal_horas.toFixed(2));
-        const temps = temperatureData.map(item => item.temperatura);
+        // Transformar los datos para usar el eje X fijo
+        const dataPoints = temperatureData.map(item => ({
+            x: item.marca_temporal_horas,
+            y: item.temperatura
+        }));
 
-        console.log('Temperatura:', temps);
-        console.log('Labels:', labels);
+        console.log('Temperatura:', dataPoints.map(d => d.y));
+        console.log('Horas:', dataPoints.map(d => d.x));
 
         new Chart(ctx, {
             type: 'line',
             data: {
-                labels: labels,
                 datasets: [{
                     label: 'Temperatura (°C)',
-                    data: temps,
-                    borderColor: "#048a81ff", // dark cyan
+                    data: dataPoints,
+                    borderColor: "#048a81", // dark cyan
                     backgroundColor: 'rgba(4, 138, 129, 0.2)', // dark cyan con transparencia
-                    pointBackgroundColor: "#da627dff", // blush
+                    pointBackgroundColor: "#da627d", // blush
                     pointRadius: 2,
                     pointHoverRadius: 4,
                     borderWidth: 2,
@@ -212,11 +223,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 maintainAspectRatio: false,
                 scales: {
                     y: {
+                        type: 'linear',
                         min: 12.5,
                         max: 39.7,
                         ticks: {
                             stepSize: 1.7,
-                            color: "#320e3bff", // russian violet
+                            color: "#320e3b", // russian violet
                             font: {
                                 family: 'Arial',
                                 size: 12,
@@ -229,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         title: {
                             display: true,
                             text: "Temperatura (°C)",
-                            color: "#320e3bff",
+                            color: "#320e3b",
                             font: {
                                 size: 14,
                                 weight: 'bold'
@@ -237,13 +249,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     },
                     x: {
+                        type: 'linear',
                         min: 0,
                         max: 72,
                         ticks: {
+                            stepSize: 24, // Marcas cada 24 horas
                             color: "#656256", // ebony
-                            stepSize: 1,
-                            callback: function(val, index) {
-                                return index % 24 === 0 ? `${val}h` : '';
+                            callback: function(value) {
+                                // Mostrar solo las marcas de 24 en 24 horas
+                                return value % 24 === 0 ? `${value}h` : '';
                             }
                         },
                         grid: {
@@ -252,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         title: {
                             display: true,
                             text: "Tiempo (h)",
-                            color: "#320e3bff",
+                            color: "#320e3b",
                             font: {
                                 size: 14,
                                 weight: 'bold'
@@ -264,21 +278,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     legend: {
                         display: true,
                         labels: {
-                            color: "#320e3bff", // russian violet
+                            color: "#320e3b", // russian violet
                             font: {
                                 weight: 'bold'
                             }
                         }
                     },
                     tooltip: {
-                        backgroundColor: "#fcfaf9ff", // seasalt
-                        titleColor: "#320e3bff",
-                        bodyColor: "#048a81ff",
-                        borderColor: "#048a81ff",
+                        backgroundColor: "#fcfaf9", // seasalt
+                        titleColor: "#320e3b",
+                        bodyColor: "#048a81",
+                        borderColor: "#048a81",
                         borderWidth: 1,
                         callbacks: {
+                            title: function(context) {
+                                // Mostrar la hora en el tooltip
+                                return `Hora: ${context[0].raw.x}h`;
+                            },
                             label: function(context) {
-                                return `Temperatura: ${context.parsed.y}°C`;
+                                return `Temperatura: ${context.raw.y}°C`;
                             }
                         }
                     }
