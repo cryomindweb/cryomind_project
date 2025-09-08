@@ -95,13 +95,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const patientFields = [
             { label: 'Progenitor', value: patient.nombre_progenitor || 'N/A' },
             { label: 'Fecha de Nacimiento', value: patient.fecha_nacimiento || 'N/A' },
+            { label: 'Semanas de Gestación', value: patient.semanas_gestacion || 'N/A' },
+            { label: 'Días de Gestación', value: patient.dias_gestacion || 'N/A' },
+            { label: 'Peso', value: patient.peso ? `${patient.peso} kg` : 'N/A' },
             // Título añadido
             { type: 'title', content: 'Tiempo desde el Nacimiento' },
             { label: 'Hora de Nacimiento', value: patient.hora_nacimiento || 'N/A' },
-            { label: 'Minutos de Nacimiento', value: patient.minuto_nacimiento || 'N/A' },
-            { label: 'Semanas de Gestación', value: patient.semanas_gestacion || 'N/A' },
-            { label: 'Días de Gestación', value: patient.dias_gestacion || 'N/A' },
-            { label: 'Peso', value: patient.peso ? `${patient.peso} kg` : 'N/A' }
+            { label: 'Minutos de Nacimiento', value: patient.minuto_nacimiento || 'N/A' }
         ];
 
         patientInfo.innerHTML = patientFields.map(field => {
