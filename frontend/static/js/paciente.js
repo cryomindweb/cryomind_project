@@ -251,13 +251,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     x: {
                         type: 'linear',
                         min: 0,
-                        max: 72,
+                        max: 8,
                         ticks: {
-                            stepSize: 24, // Marcas cada 24 horas
+                            stepSize: 1, // Marcas cada 24 horas
                             color: "#656256", // ebony
                             callback: function(value) {
                                 // Mostrar solo las marcas de 24 en 24 horas
-                                return value % 24 === 0 ? `${value}h` : '';
+                                return value % 1 === 0 ? `${value}h` : '';
                             }
                         },
                         grid: {
