@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Transformar los datos para usar el eje X fijo
         const dataPoints = temperatureData.map(item => ({
-            x: item.marca_temporal_horas*60,
+            x: item.marca_temporal/60,
             y: item.temperatura
         }));
 
@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         callbacks: {
                             title: function(context) {
                                 // Mostrar la hora en el tooltip
-                                return `Minuto: ${context[0].raw.x}m`;
+                                return `Minuto: ${(context[0].raw.x).toFixed(2)}m`;
                             },
                             label: function(context) {
                                 return `Temperatura: ${context.raw.y}°C`;
