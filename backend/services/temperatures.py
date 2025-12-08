@@ -47,7 +47,7 @@ def create_temperature_batch_service(temperatures_data: TemperatureBatchCreate):
 
 def temperature_list_service(id_clinico: str):
     try:
-        temperatures = supabase.table("temperaturas").select("temperatura, marca_temporal_horas").eq("id_clinico", id_clinico).order("marca_temporal_horas", desc=False).execute()
+        temperatures = supabase.table("temperaturas").select("temperatura, marca_temporal, marca_temporal_horas").eq("id_clinico", id_clinico).order("marca_temporal_horas", desc=False).execute()
         if not temperatures.data:
             return [False, {'status_code': 404, 'detail': "No se encontraron temperaturas"}]
         return [True, {"temperaturas": temperatures.data}]

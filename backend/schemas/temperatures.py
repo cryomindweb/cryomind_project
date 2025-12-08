@@ -16,6 +16,7 @@ class TemperatureBatchCreate(BaseModel):
 
 class TemperatureResponse(BaseModel):
     temperatura: float = Field(..., description="Temperatura del paciente en grados Celsius")
+    marca_temporal: float = Field(..., description="Marca de tiempo en estandar")
     marca_temporal_horas: float = Field(..., description="Marca de tiempo en horas")
 
 class TemperatureListResponse(BaseModel):
