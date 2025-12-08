@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Transformar los datos para usar el eje X fijo
         const dataPoints = temperatureData.map(item => ({
-            x: item.marca_temporal_horas,
+            x: item.marca_temporal_horas*60,
             y: item.temperatura
         }));
 
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             color: "#656256", // ebony
                             callback: function(value) {
                                 // Mostrar solo las marcas de 24 en 24 horas
-                                return value % 1 === 0 ? `${value}h` : '';
+                                return value % 1 === 0 ? `${value}m` : '';
                             }
                         },
                         grid: {
@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         },
                         title: {
                             display: true,
-                            text: "Tiempo (h)",
+                            text: "Tiempo (m)",
                             color: "#320e3b",
                             font: {
                                 size: 14,
@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         callbacks: {
                             title: function(context) {
                                 // Mostrar la hora en el tooltip
-                                return `Hora: ${context[0].raw.x}h`;
+                                return `Minuto: ${context[0].raw.x}m`;
                             },
                             label: function(context) {
                                 return `Temperatura: ${context.raw.y}°C`;
